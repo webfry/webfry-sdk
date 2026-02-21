@@ -1,0 +1,6 @@
+src/
+examples/
+.github/
+*.md
+!README.md
+!LICENSE
