@@ -40,11 +40,11 @@ client.setApiKey(api_key);
 UI naming:
 - Starter Plan
 - Pro Plan
-- Enterprise Plan (upcoming)
+- Enterprise Plan (enterprise)
 
 Internal API plan values in responses:
-- `free` -> Starter
-- `premium` -> Pro
+- `starter` -> Starter
+- `pro` -> Pro
 
 Starter limit is currently **100 requests/month**.
 

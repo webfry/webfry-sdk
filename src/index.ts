@@ -33,7 +33,7 @@ export interface ApiKeyResponse {
 export interface UserInfoResponse {
   email: string;
   paid_until: string | null;
-  plan: "free" | "premium" | string;
+  plan: "starter" | "pro" | "enterprise" | string;
   api_usage: number;
   max_usage_for_plan: number | null;
   created_at: string;
