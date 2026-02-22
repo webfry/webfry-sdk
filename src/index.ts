@@ -166,7 +166,10 @@ export class WebfryClient {
   constructor(options: WebfryClientOptions = {}) {
     const baseUrl = options.baseUrl ?? "https://webfry.dev";
     const normalized = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
-    this.baseApiUrl = normalized.endsWith("/api") ? normalized : `${normalized}/api`;
+    this.baseApiUrl =
+      normalized.endsWith("/api") || normalized.endsWith("/api/v1")
+        ? normalized
+        : `${normalized}/api`;
     this.apiKey = options.apiKey;
     this.fetchImpl = options.fetchImpl ?? fetch;
     this.timeoutMs = options.timeoutMs ?? 15_000;
@@ -364,7 +367,8 @@ export class WebfryClient {
     const payload = raw.length > 0 ? safeJsonParse(raw) : null;
 
     if (!response.ok) {
-      throw new WebfryApiError(errorMessageFromPayload(payload, response.statusText), response.status, payload);
+      const fallback = response.statusText || raw.slice(0, 200) || "Request failed";
+      throw new WebfryApiError(errorMessageFromPayload(payload, fallback), response.status, payload ?? raw);
     }
 
     return payload as T;
